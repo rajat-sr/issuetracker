@@ -1,10 +1,20 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import boards from './routes/boards';
+import mongoose from 'mongoose';
+import config from './config/config';
 
-const PORT = 3000;
+const PORT = config.PORT;
 
 const app = express();
+
+mongoose.connect(
+  config.mongo.connectionString,
+  { useNewUrlParser: true },
+  err => {
+    console.log(err);
+  }
+);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

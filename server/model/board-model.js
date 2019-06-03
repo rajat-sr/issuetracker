@@ -7,49 +7,49 @@ const BoardSchema = new Schema(
     name: {
       type: String,
       trim: true,
-      required: true,
+      required: false
     },
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
+      required: false
     },
     members: [
       {
         member: {
           type: Schema.Types.ObjectId,
-          ref: 'User',
+          ref: 'User'
         },
         role: {
           type: String,
           enum: ['SUPERADMIN', 'ADMIN', 'USER', 'INVITED'],
           default: 'USER',
-          required: true,
-        },
-      },
+          required: false
+        }
+      }
     ],
     lifeCycles: [
       {
         name: {
           type: String,
-          trim: true,
+          trim: true
         },
         issues: [
           {
             type: Schema.Types.ObjectId,
-            ref: 'Issue',
-          },
+            ref: 'Issue'
+          }
         ],
         sequenceNumber: {
           type: Number,
-          required: true,
-        },
-      },
-    ],
+          required: false
+        }
+      }
+    ]
   },
   {
-    timestamps: true,
-  },
+    timestamps: true
+  }
 );
 
 export default mongoose.model('Board', BoardSchema);

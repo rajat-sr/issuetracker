@@ -1,7 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-
-import Board from './../model/board';
+import Board from '../model/board-model';
 
 const app = express();
 
@@ -24,11 +23,14 @@ app.get('/:boardID', async (req, res) => {
     return res.status(503).send(e);
   }
   return res.send(boards);
-});
 
-// app.post('/', async (req, res) => {
-  // const { name, lifeCycles } = req.body;
-  // const dbStatus = await Board.
-// });
+app.post('/', (req, res) => {
+  new Board({
+    name: 'First Board'
+  })
+    .save()
+    .then(newBoard => res.status(200).send(newBoard))
+    .catch(err => res.status(500).send('Something went wrong!' + err));
+});
 
 module.exports = app;

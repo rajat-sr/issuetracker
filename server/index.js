@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import boards from './routes/boards';
+import issues from './routes/issues';
+import user from './routes/user';
 import mongoose from 'mongoose';
 import config from './config/config';
 
@@ -19,6 +21,7 @@ mongoose.connect(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/boards/', boards);
+app.use('/issues/', issues);
 
 app.get('/', (req, res) => {
   res.send('Hey!');

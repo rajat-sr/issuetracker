@@ -6,56 +6,56 @@ const IssueSchema = new Schema(
     description: {
       type: String,
       trim: true,
-      required: true,
+      required: false
     },
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
+      required: false
     },
     modifiedBy: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     },
     tags: [
       {
         name: {
           type: String,
-          required: true,
+          required: false
         },
         color: {
           type: String,
-          required: true,
-        },
-      },
+          required: false
+        }
+      }
     ],
     dueDate: {
-      type: Date,
+      type: Date
     },
     assignee: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     },
     upvotes: {
       type: Number,
-      default: 0,
+      default: 0
     },
     upvotedBy: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'User',
-      },
+        ref: 'User'
+      }
     ],
     comments: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Comments',
-      },
-    ],
+        ref: 'Comments'
+      }
+    ]
   },
   {
-    timestamps: true,
-  },
+    timestamps: true
+  }
 );
 
 export default mongoose.model('Issue', IssueSchema);

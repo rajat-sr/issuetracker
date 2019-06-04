@@ -18,8 +18,8 @@ router.get(
   '/google/redirect',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    const test = req.user;
-    res.send(`redirected${test}`);
+    const token = req.user.token;
+    res.redirect('http://localhost:3000?token=' + token);
   }
 );
 

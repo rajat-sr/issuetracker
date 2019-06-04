@@ -1,6 +1,13 @@
 import React from 'react';
 import LifecycleImplemenation from './LifecycleImplemenation';
-import { Button, Card } from '@blueprintjs/core';
+import {
+  Button,
+  Elevation,
+  Card,
+  Icon,
+  FormGroup,
+  InputGroup
+} from '@blueprintjs/core';
 import classes from './Board.module.css';
 import { SERVER_URL } from '../../config/config';
 import axios from 'axios';
@@ -14,7 +21,8 @@ class Board extends React.Component {
     boardName: '',
     lifecycle1: '',
     lifecycle2: '',
-    lifecycle3: ''
+    lifecycle3: '',
+    showCreateButton: false
   };
   componentDidMount() {
     axios
@@ -81,47 +89,68 @@ class Board extends React.Component {
       <KanbanLayout lifecycles={kanban.lifeCycles} />
     ) : (
       <div>
-        <Card className={classes.container}>
-          <h3>Create a New Board</h3>
-          Board Name
-          <input
-            type="text"
-            onChange={event => this.onNameChangeHandler(event)}
-          />
-          {/* <LifecycleImplemenation /> */}
-          Lifecycles
-          <input
-            type="text"
-            placeholder="Lifecycle 1 Name"
-            onChange={event => this.onChangeHandler(event, 0)}
-          />
-          <input
-            type="text"
-            placeholder="Lifecycle 2 Name"
-            onChange={event => this.onChangeHandler(event, 1)}
-          />
-          <input
-            type="text"
-            placeholder="Lifecycle 3 Name"
-            onChange={event => this.onChangeHandler(event, 2)}
-          />
-          <Button
-            text="Create New Board"
-            onClick={() => this.createBoardHandler()}
-          />
-        </Card>
         {this.state.boards ? (
-          <Card className={classes.BoardList}>
+          <>
             <h3>Your boards</h3>
-            {this.state.boards.map(boardDetail => (
-              <Button
-                className={classes.BoardButton}
-                text={boardDetail.name}
-                key={boardDetail._id}
-                onClick={() => this.onBoardClickHandler(boardDetail._id)}
+            <Card className={classes.BoardList}>
+              {this.state.boards.map(boardDetail => (
+                <Card
+                  interactive={true}
+                  elevation={Elevation.TWO}
+                  className={classes.BoardBox}
+                  key={boardDetail._id}
+                  onClick={() => this.onBoardClickHandler(boardDetail._id)}
+                >
+                  <p>{boardDetail.name}</p>
+                </Card>
+                // <Button
+                //   className={classes.BoardButton}
+                //   text={boardDetail.name}
+                //   key={boardDetail._id}
+                //   onClick={() => this.onBoardClickHandler(boardDetail._id)}
+                // />
+              ))}
+              <Card
+                interactive={true}
+                elevation={Elevation.TWO}
+                className={classes.CreateBox}
+              >
+                <p>
+                  <Icon icon="plus" iconSize={15} />
+                  Create New
+                </p>
+              </Card>
+            </Card>
+            <Card className={classes.container}>
+              <h3>Create a New Board</h3>
+              Board Name
+              <input
+                type="text"
+                onChange={event => this.onNameChangeHandler(event)}
               />
-            ))}
-          </Card>
+              {/* <LifecycleImplemenation /> */}
+              Lifecycles
+              <input
+                type="text"
+                placeholder="Lifecycle 1 Name"
+                onChange={event => this.onChangeHandler(event, 0)}
+              />
+              <input
+                type="text"
+                placeholder="Lifecycle 2 Name"
+                onChange={event => this.onChangeHandler(event, 1)}
+              />
+              <input
+                type="text"
+                placeholder="Lifecycle 3 Name"
+                onChange={event => this.onChangeHandler(event, 2)}
+              />
+              <Button
+                text="Create New Board"
+                onClick={() => this.createBoardHandler()}
+              />
+            </Card>
+          </>
         ) : null}
       </div>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, NavbarDivider, NavbarGroup, NavbarHeading, Button, Alignment } from '@blueprintjs/core';
+import { Navbar, NavbarDivider, NavbarGroup, NavbarHeading, Button } from '@blueprintjs/core';
 
 const NavbarLayout = props => {
   return (
@@ -7,10 +7,6 @@ const NavbarLayout = props => {
       <NavbarGroup>
         <NavbarHeading>{props.boardName ? props.boardName : "Issue Tracker"}</NavbarHeading>
         <NavbarDivider />
-        <Button icon="home" text="Boards" />
-      </NavbarGroup>
-      <NavbarGroup align={Alignment.RIGHT}>
-        <Button icon="log-out" text="Logout" />
       </NavbarGroup>
     </Navbar>
   );

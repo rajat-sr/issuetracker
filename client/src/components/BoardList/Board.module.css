@@ -43,3 +43,7 @@
 .BoardBox p,.CreateBox p{
   margin-bottom: 0px;
 }
+
+.Boards {
+  margin: 0 20px;
+}

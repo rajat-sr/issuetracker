@@ -17,13 +17,16 @@ class Board extends React.Component {
     showCreateButton: false,
   };
 
-  componentDidMount() {
+  getAllBoards = () => {
     axios
       .get(`${SERVER_URL}/boards`)
       .then(res => {
         this.setState({ boards: res.data });
       })
       .catch(e => console.log(e));
+  }
+  componentDidMount() {
+    this.getAllBoards();
   }
 
   onBoardClickHandler = boardId => {
@@ -70,7 +73,7 @@ class Board extends React.Component {
           },
         ],
       })
-      .then(res => {})
+      .then(res => this.getAllBoards())
       .catch(e => console.log(e));
   };
 
@@ -83,9 +86,9 @@ class Board extends React.Component {
         reRenderBoard={() => this.onBoardClickHandler(kanban._id)}
       />
     ) : (
-      <div>
+      <div className={classes.Boards}>
         {this.state.boards ? (
-          <>
+          <div>
             <h3>Your boards</h3>
             <Card className={classes.BoardList}>
               {this.state.boards.map(boardDetail => (
@@ -106,7 +109,7 @@ class Board extends React.Component {
                 </p>
               </Card>
             </Card>
-          </>
+          </div>
         ) : null}
         <Card className={classes.container}>
           <h3>Create a New Board</h3>

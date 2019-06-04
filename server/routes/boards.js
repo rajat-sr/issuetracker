@@ -32,4 +32,18 @@ app.get('/:boardID', async (req, res) => {
   return res.send(boards);
 });
 
+app.get('/:boardId/issues', async (req, res) => {
+  const boardID = req.params.boardId;
+  try {
+    Board.findById(boardID)
+    .populate('lifeCycles.$.issues')
+    .exec((err, board) => {
+      if (err) return res.status(503).send(err);
+      return res.send(board);
+    });
+  } catch (e) {
+    return res.status(503).send(e);
+  }
+});
+
 module.exports = app;

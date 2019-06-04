@@ -3,8 +3,6 @@ import KanbanLayout from './containers/KanbanLayout/KanbanLayout';
 import Board from './components/BoardList/Board';
 import NavbarLayout from './containers/Navbar/Navbar';
 
-const lifecycles = ['LC1', 'LC2', 'LC3'];
-
 function App() {
   return (
     <div className="App">

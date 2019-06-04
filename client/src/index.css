@@ -15,3 +15,10 @@
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",	
     monospace;	
 }
+.bp3-navbar-heading{
+  color:white;
+} 
+.bp3-navbar{
+  background-color: #24292e;
+}
+ 

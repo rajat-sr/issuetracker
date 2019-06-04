@@ -1,0 +1,47 @@
+/* .container {
+  width: 500px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.container input {
+  margin-bottom: 10px;
+}
+
+.BoardList {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: auto;
+  text-align: center;
+}
+
+.BoardButton {
+  width: 300px;
+  margin: 5px auto;
+} */
+
+.BoardList{
+  display: flex;
+  flex-flow: row wrap;
+  margin:20px;
+  background-color: whitesmoke;
+}
+.BoardBox ,.CreateBox{
+  margin-right: 2%;
+  margin-bottom: 2%;
+  min-width: 120px;
+  text-align: center;
+  /* min-height: 100px; */
+  color: #565656;
+  font-weight: 500;
+}
+.CreateBox{ 
+  color: blue;
+  background-color: #fffcd6;
+}
+
+.BoardBox p,.CreateBox p{
+  margin-bottom: 0px;
+}

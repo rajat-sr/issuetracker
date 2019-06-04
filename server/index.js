@@ -1,8 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import boards from './routes/boards';
+import issues from './routes/issues';
 import mongoose from 'mongoose';
 import config from './config/config';
+import cors from 'cors';
 
 const PORT = config.PORT;
 
@@ -16,9 +18,11 @@ mongoose.connect(
   }
 );
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/boards/', boards);
+app.use('/issues/', issues);
 
 app.get('/', (req, res) => {
   res.send('Hey!');

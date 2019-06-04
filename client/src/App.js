@@ -1,12 +1,16 @@
 import React from 'react';
 import KanbanLayout from './containers/KanbanLayout/KanbanLayout';
-
-const lifecycles = ['LC1', 'LC2', 'LC3'];
+import Board from './components/BoardList/Board';
+import NavbarLayout from './containers/Navbar/Navbar';
 
 function App() {
   return (
     <div className="App">
-      <KanbanLayout lifecycles={lifecycles} />
+      <NavbarLayout 
+      // boardName={boardName}
+      />
+      {/* <KanbanLayout lifecycles={lifecycles} /> */}
+      <Board />
     </div>
   );
 }

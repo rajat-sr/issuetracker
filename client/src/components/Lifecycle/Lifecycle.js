@@ -4,6 +4,7 @@ import IssueContainer from './../../containers/IssueContainer/IssueContainer';
 import NewIssue from './../NewIssue/NewIssue';
 import classes from './Lifecycle.module.css';
 
+<<<<<<< HEAD
 const issues = [
   { _id: 1, issue: 'abcd' },
   { _id: 2, issue: 'asvas' },
@@ -14,14 +15,16 @@ const issues = [
 ];
 
 
+=======
+>>>>>>> 85a8e19120938a16984741bba8ab0c4fd8e78dc6
 const Lifecycle = props => (
   <Card elevation={Elevation.TWO} className={classes.Lifecycle}>
     <h3>{props.name}</h3>
     <Divider />
-    {issues ? (
+    {props.issues && props.issues.length > 0 ? (
       <div>
-        {issues.map(issue => (
-          <IssueContainer issue={issue.issue} key={issue._id} />
+        {props.issues.map(issue => (
+          <IssueContainer issue={issue.description} key={issue._id} />
         ))}
         <Divider />
       </div>

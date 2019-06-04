@@ -1,8 +1,15 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import Board from '../model/board-model';
 
 const app = express();
+
+app.post('/', (req, res) => {
+  const boardBody = req.body;
+  new Board(boardBody)
+    .save()
+    .then(newBoard => res.status(200).send(newBoard))
+    .catch(err => res.status(500).send('Something went wrong!' + err));
+});
 
 app.get('/', async (req, res) => {
   let boards;
@@ -19,18 +26,26 @@ app.get('/:boardID', async (req, res) => {
   let boards;
   try {
     boards = await Board.find({ _id: boardID });
+  } catch (err) {
+    return res.status(503).send(err);
+  }
+  return res.send(boards);
+});
+
+app.get('/:boardId/issues', async (req, res) => {
+  const boardID = req.params.boardId;
+  try {
+    Board.findById(boardID)
+      .populate({
+        path: 'lifeCycles.issues'
+      })
+      .exec((err, board) => {
+        if (err) return res.status(503).send(err);
+        return res.send(board);
+      });
   } catch (e) {
     return res.status(503).send(e);
   }
-  return res.send(boards);
-
-app.post('/', (req, res) => {
-  new Board({
-    name: 'First Board'
-  })
-    .save()
-    .then(newBoard => res.status(200).send(newBoard))
-    .catch(err => res.status(500).send('Something went wrong!' + err));
 });
 
 module.exports = app;

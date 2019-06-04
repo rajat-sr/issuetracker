@@ -1,6 +1,5 @@
 import React from 'react';
-import LifecycleImplemenation from './LifecycleImplemenation';
-import { Button, Elevation, Card, Icon, FormGroup, InputGroup } from '@blueprintjs/core';
+import { Button, Elevation, Card, Icon } from '@blueprintjs/core';
 import classes from './Board.module.css';
 import { SERVER_URL } from '../../config/config';
 import axios from 'axios';
@@ -17,6 +16,7 @@ class Board extends React.Component {
     lifecycle3: '',
     showCreateButton: false,
   };
+
   componentDidMount() {
     axios
       .get(`${SERVER_URL}/boards`)
@@ -30,9 +30,7 @@ class Board extends React.Component {
     axios
       .get(`${SERVER_URL}/boards/${boardId}/issues`)
       .then(res => {
-        console.log(res.data);
         this.setState({ kanban: res.data, loadKanban: true });
-        console.log(res.data);
       })
       .catch();
   };
@@ -79,7 +77,11 @@ class Board extends React.Component {
   render() {
     const { loadKanban, kanban } = this.state;
     const layout = loadKanban ? (
-      <KanbanLayout lifecycles={kanban.lifeCycles} />
+      <KanbanLayout
+        lifecycles={kanban.lifeCycles}
+        boardid={kanban._id}
+        reRenderBoard={() => this.onBoardClickHandler(kanban._id)}
+      />
     ) : (
       <div>
         {this.state.boards ? (
@@ -96,12 +98,6 @@ class Board extends React.Component {
                 >
                   <p>{boardDetail.name}</p>
                 </Card>
-                // <Button
-                //   className={classes.BoardButton}
-                //   text={boardDetail.name}
-                //   key={boardDetail._id}
-                //   onClick={() => this.onBoardClickHandler(boardDetail._id)}
-                // />
               ))}
               <Card interactive={true} elevation={Elevation.TWO} className={classes.CreateBox}>
                 <p>

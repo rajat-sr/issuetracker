@@ -16,7 +16,7 @@ const Lifecycle = props => (
         <Divider />
       </div>
     ) : null}
-    <NewIssue />
+    <NewIssue lifecycleid={props.lifecycleid} boardid={props.boardid} reRenderBoard={() => props.reRenderBoard()}/>
   </Card>
 );
 

@@ -10,6 +10,9 @@ const LifecyclesContainer = props => (
             name={lifecycle.name}
             key={lifecycle._id}
             issues={lifecycle.issues}
+            lifecycleid={lifecycle._id}
+            boardid={props.boardid}
+            reRenderBoard={() => props.reRenderBoard()}
           />
         ))
       : null}

@@ -45,7 +45,7 @@ app.get(
 async function updateBoardIssues(issueId, boardId, lifeCycleId) {
   let updatedBoard = await Board.findOneAndUpdate(
     { _id: boardId, lifeCycles: { $elemMatch: { _id: lifeCycleId } } },
-    { $push: { 'lifeCycles.0.issues': issueId } },
+    { $push: { 'lifeCycles.$.issues': issueId } },
     { new: true, useFindAndModify: false }
   );
   return updatedBoard;

@@ -14,7 +14,7 @@ class Board extends React.Component {
     boardName: '',
     lifecycle1: '',
     lifecycle2: '',
-    lifecycle3: '',
+    lifecycle3: ''
   };
   componentDidMount() {
     axios
@@ -29,6 +29,7 @@ class Board extends React.Component {
     axios
       .get(`${SERVER_URL}/boards/${boardId}/issues`)
       .then(res => {
+        console.log(res.data);
         this.setState({ kanban: res.data, loadKanban: true });
         console.log(res.data);
       })
@@ -47,31 +48,32 @@ class Board extends React.Component {
     this.setState(change);
   };
 
-  onNameChangeHandler = (event) => {
-    this.setState({boardName: event.target.value})
-  }
+  onNameChangeHandler = event => {
+    this.setState({ boardName: event.target.value });
+  };
 
   createBoardHandler = () => {
-    axios.post(`${SERVER_URL}/boards`, {
-      name: this.state.boardName,
-      lifeCycles: [
-        {
-          name: this.state.lifecycle1,
-          sequenceNumber: 0
-        },
-        {
-          name: this.state.lifecycle2,
-          sequenceNumber: 0
-        },
-        {
-          name: this.state.lifecycle3,
-          sequenceNumber: 0
-        }
-      ]
-    }).then(res => {
-      
-    }).catch(e => console.log(e))
-  }
+    axios
+      .post(`${SERVER_URL}/boards`, {
+        name: this.state.boardName,
+        lifeCycles: [
+          {
+            name: this.state.lifecycle1,
+            sequenceNumber: 0
+          },
+          {
+            name: this.state.lifecycle2,
+            sequenceNumber: 0
+          },
+          {
+            name: this.state.lifecycle3,
+            sequenceNumber: 0
+          }
+        ]
+      })
+      .then(res => {})
+      .catch(e => console.log(e));
+  };
 
   render() {
     const { loadKanban, kanban } = this.state;
@@ -82,7 +84,10 @@ class Board extends React.Component {
         <Card className={classes.container}>
           <h3>Create a New Board</h3>
           Board Name
-          <input type="text" onChange={event => this.onNameChangeHandler(event)}/>
+          <input
+            type="text"
+            onChange={event => this.onNameChangeHandler(event)}
+          />
           {/* <LifecycleImplemenation /> */}
           Lifecycles
           <input
@@ -100,7 +105,10 @@ class Board extends React.Component {
             placeholder="Lifecycle 3 Name"
             onChange={event => this.onChangeHandler(event, 2)}
           />
-          <Button text="Create New Board" onClick={() => this.createBoardHandler()}/>
+          <Button
+            text="Create New Board"
+            onClick={() => this.createBoardHandler()}
+          />
         </Card>
         {this.state.boards ? (
           <Card className={classes.BoardList}>

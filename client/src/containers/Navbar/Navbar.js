@@ -5,7 +5,7 @@ const NavbarLayout = props => {
   return (
     <Navbar>
       <NavbarGroup>
-        <NavbarHeading>{props.boardName}</NavbarHeading>
+        <NavbarHeading>{props.boardName ? props.boardName : "Issue Tracker"}</NavbarHeading>
         <NavbarDivider />
         <Button icon="home" text="Boards" />
       </NavbarGroup>

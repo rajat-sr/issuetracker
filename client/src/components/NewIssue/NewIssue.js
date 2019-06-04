@@ -1,6 +1,8 @@
 import React from 'react';
 import { EditableText, Button } from '@blueprintjs/core';
 import classes from './NewIssue.module.css';
+import axios from 'axios';
+import { SERVER_URL } from '../../config/config';
 
 const NewIssue = () => {
   return (

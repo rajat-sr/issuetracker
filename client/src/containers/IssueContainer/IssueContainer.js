@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Elevation } from '@blueprintjs/core';
-import classes from './IssueContainer.module.css'
+import classes from './IssueContainer.module.css';
 
 const IssueContainer = props => {
   return (

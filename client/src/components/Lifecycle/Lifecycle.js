@@ -11,7 +11,7 @@ const Lifecycle = props => (
     {props.issues && props.issues.length > 0 ? (
       <div>
         {props.issues.map(issue => (
-          <IssueContainer issue={issue.issue} key={issue._id} />
+          <IssueContainer issue={issue.description} key={issue._id} />
         ))}
         <Divider />
       </div>

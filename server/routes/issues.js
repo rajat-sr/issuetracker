@@ -6,9 +6,9 @@ const app = express();
 
 app.post('/', (req, res) => {
   const issueBody = req.body;
-  new Issue()
+  new Issue(issueBody)
     .save()
-    .then(newIssue => res.status(200).send(newIssue))
+    .then(newIssue => updateBoardIssues(newIssue._id, newIssue.boardId))
     .catch(err => res.status(500).send('Something went wrong!' + err));
 });
 
@@ -39,13 +39,18 @@ app.get(
 );
 
 function updateBoardIssues(issueId, boardId) {
-  Board.findByIdAndUpdate(boardId, { 'lifeCycles.issures': issueId }, function(
-    err,
-    doc
-  ) {
-    console.log(doc);
-    console.log(err, 'err');
-  });
+  Board.findByIdAndUpdate(
+    boardId,
+    { lifeCycles: { $push: { issues: issueId } } },
+    { new: true, useFindAndModify: false },
+    function(err, doc) {
+      if (doc) {
+        return res.status(200).send(doc);
+      }
+      console.log(err);
+    }
+  );
 }
 
 module.exports = app;
+//doc.array.addToSet(4,5)

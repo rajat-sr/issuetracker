@@ -13,6 +13,7 @@ const issues = [
   { _id: 6, issue: 'asfmniuvbydandvfdgbhnjmkiyutyabcd' },
 ];
 
+
 const Lifecycle = props => (
   <Card elevation={Elevation.TWO} className={classes.Lifecycle}>
     <h3>{props.name}</h3>

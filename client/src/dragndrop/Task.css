@@ -1,0 +1,6 @@
+.container-task {
+    display: flex;
+    border: 1px solid lightgrey;
+    padding: 2px;
+    margin-bottom: 8px;
+}

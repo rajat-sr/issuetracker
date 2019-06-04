@@ -17,6 +17,16 @@ const IssueSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'User'
     },
+    boardId: {
+      type: String,
+      trim: true,
+      required: false
+    },
+    lifeCycle: {
+      type: String,
+      trim: true,
+      required: false
+    },
     tags: [
       {
         name: {

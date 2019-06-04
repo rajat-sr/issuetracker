@@ -22,7 +22,7 @@ const IssueSchema = new Schema(
       trim: true,
       required: false
     },
-    lifeCycle: {
+    lifeCycleId: {
       type: String,
       trim: true,
       required: false

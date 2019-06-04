@@ -8,8 +8,12 @@ app.post('/', (req, res) => {
   const issueBody = req.body;
   new Issue(issueBody)
     .save()
-    .then(newIssue => updateBoardIssues(newIssue._id, newIssue.boardId))
+    .then(newIssue =>
+      updateBoardIssues(newIssue._id, newIssue.boardId, newIssue.lifeCycleId)
+    )
+    .then(updatedBoard => res.status(200).send(updatedBoard))
     .catch(err => res.status(500).send('Something went wrong!' + err));
+  //   if (updatedBoard) return res.status(200).send(updatedBoard);
 });
 
 app.get('/:issueId', async (req, res) => {
@@ -38,18 +42,13 @@ app.get(
   }
 );
 
-function updateBoardIssues(issueId, boardId) {
-  Board.findByIdAndUpdate(
-    boardId,
-    { lifeCycles: { $push: { issues: issueId } } },
-    { new: true, useFindAndModify: false },
-    function(err, doc) {
-      if (doc) {
-        return res.status(200).send(doc);
-      }
-      console.log(err);
-    }
+async function updateBoardIssues(issueId, boardId, lifeCycleId) {
+  let updatedBoard = await Board.findOneAndUpdate(
+    { _id: boardId, lifeCycles: { $elemMatch: { _id: lifeCycleId } } },
+    { $push: { 'lifeCycles.0.issues': issueId } },
+    { new: true, useFindAndModify: false }
   );
+  return updatedBoard;
 }
 
 module.exports = app;
